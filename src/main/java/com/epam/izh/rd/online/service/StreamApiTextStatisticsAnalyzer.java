@@ -2,10 +2,13 @@ package com.epam.izh.rd.online.service;
 
 import com.epam.izh.rd.online.helper.Direction;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
-import static java.util.Collections.*;
+import static java.util.Collections.emptyList;
 
 /**
  * Данный класс обязан использовать StreamApi из функционала Java 8. Функциональность должна быть идентична
@@ -16,7 +19,7 @@ public class StreamApiTextStatisticsAnalyzer implements TextStatisticsAnalyzer {
     public int countSumLengthOfWords(String text) {
         return getWords(text).
                 stream().
-                mapToInt((s) -> s.length()).
+                mapToInt(String::length).
                 sum();
     }
 
@@ -37,7 +40,7 @@ public class StreamApiTextStatisticsAnalyzer implements TextStatisticsAnalyzer {
 
     @Override
     public Set<String> getUniqueWords(String text) {
-        return getWords(text).stream().distinct().collect(Collectors.toSet());
+        return getWords(text).stream().collect(Collectors.toSet());
     }
 
     @Override
@@ -52,11 +55,11 @@ public class StreamApiTextStatisticsAnalyzer implements TextStatisticsAnalyzer {
 
     @Override
     public List<String> sortWordsByLength(String text, Direction direction) {
-        switch (direction){
-            case ASC:{
+        switch (direction) {
+            case ASC: {
                 return getWords(text).stream().sorted((a, b) -> a.length() - b.length()).collect(Collectors.toList());
             }
-            case DESC:{
+            case DESC: {
                 return getWords(text).stream().sorted((a, b) -> b.length() - a.length()).collect(Collectors.toList());
             }
             default: {

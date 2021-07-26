@@ -73,7 +73,7 @@ public class SimpleTextStatisticsAnalyzer implements TextStatisticsAnalyzer {
      */
     @Override
     public Set<String> getUniqueWords(String text) {
-        return new HashSet<String>(getWords(text));
+        return new HashSet<>(getWords(text));
     }
 
     /**
@@ -109,9 +109,9 @@ public class SimpleTextStatisticsAnalyzer implements TextStatisticsAnalyzer {
         sortedList.add(0, list.get(0));
         for (int i = 1; i < list.size(); i++) {
             position = 0;
-            for (int j = 0; j < sortedList.size(); j++) {
-                if (direction == Direction.ASC && list.get(i).length() > sortedList.get(j).length() ||
-                        direction == Direction.DESC && list.get(i).length() < sortedList.get(j).length()) {
+            for (String s : sortedList) {
+                if (direction == Direction.ASC && list.get(i).length() > s.length() ||
+                        direction == Direction.DESC && list.get(i).length() < s.length()) {
                     position++;
                 }
             }
